@@ -1,9 +1,11 @@
 package com.edurda77.transpher_frontend.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.edurda77.transpher_frontend.databinding.ActivityMainBinding
+import com.edurda77.transpher_frontend.model.LoginData
 import com.edurda77.transpher_frontend.utils.StateMainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,12 +45,17 @@ class MainActivity : AppCompatActivity() {
                     binding.ok.isVisible = false
                 }
                 is StateMainActivity.SuccessSingle -> {
+                    /**/
                     binding.progressBar.isVisible = false
                     binding.textInput.isVisible = true
-                    binding.textInput.text = it.data.toString()
+                    //binding.textInput.text = it.data.toString()
                     binding.login.isVisible = false
                     binding.password.isVisible = false
                     binding.ok.isVisible = false
+                    val intent = Intent(this@MainActivity, WorkActivityUser::class.java)
+                    intent.putExtra(LoginData::class.java.simpleName, it.data)
+
+                    startActivity(intent)
                 }
                 else -> {
                     binding.progressBar.isVisible = false
