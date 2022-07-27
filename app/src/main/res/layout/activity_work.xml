@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.WorkActivityUser">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name_room_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textStyle="bold"
+        android:text="Квартира №"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name_user_text"
+        android:text="Квартира"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/last_data_text"
+        android:text="Предыдущие показания"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_room_text"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/last_data_show"
+        android:text="0"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_user_text"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/current_data_text"
+        android:text="Новые показания"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_new_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0000"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/guideline"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/send_new_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Передать показания"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_new_data"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
