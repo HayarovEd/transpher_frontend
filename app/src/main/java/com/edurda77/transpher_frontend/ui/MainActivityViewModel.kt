@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edurda77.transpher_frontend.retrofit.RetrofitUseCaseImpl
 import com.edurda77.transpher_frontend.utils.ADMIN
+import com.edurda77.transpher_frontend.utils.NetworkState
 import com.edurda77.transpher_frontend.utils.StateMainActivity
 import kotlinx.coroutines.launch
 
@@ -23,10 +24,19 @@ class MainActivityViewModel : ViewModel() {
                     _companiesData.value =  StateMainActivity.Success(result)
                 } else {
                     val result = retrofitUseCaseImpl.getData(login, password)
-                    _companiesData.value =  StateMainActivity.Success2(result)
+                    when (result) {
+                        is NetworkState.Success -> {
+                            _companiesData.value = StateMainActivity.SuccessSingle(result.data)
+                        }
+                        is NetworkState.Error -> {
+                            _companiesData.value = StateMainActivity.Failure(result.response.errorBody().toString())
+                        }
+                    }
+
+                    //_companiesData.value =  StateMainActivity.SuccessSingle(result)
                 }
             } catch (error: Exception) {
-                _companiesData.value = StateMainActivity.Failure(error)
+                _companiesData.value = StateMainActivity.Failure(error.toString())
             }
         }
     }

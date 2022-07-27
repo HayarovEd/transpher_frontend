@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                     binding.password.isVisible = false
                     binding.ok.isVisible = false
                 }
-                is StateMainActivity.Success2 -> {
+                is StateMainActivity.SuccessSingle -> {
                     binding.progressBar.isVisible = false
                     binding.textInput.isVisible = true
                     binding.textInput.text = it.data.toString()
