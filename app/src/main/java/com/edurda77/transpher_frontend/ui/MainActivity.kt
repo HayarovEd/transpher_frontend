@@ -12,12 +12,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainActivityViewModel  by viewModel()
-
+private lateinit var tmp:LoginData
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+            /*val intent = Intent(this@MainActivity, WorkActivityUser::class.java)
+            intent.putExtra("DRD", "tmp")
+            startActivity(intent)*/
+
 
         viewModel.companiesData.observe(this) {
             when (it) {
@@ -45,17 +50,20 @@ class MainActivity : AppCompatActivity() {
                     binding.ok.isVisible = false
                 }
                 is StateMainActivity.SuccessSingle -> {
-                    /**/
+
                     binding.progressBar.isVisible = false
-                    binding.textInput.isVisible = true
+                    binding.textInput.isVisible = false
                     //binding.textInput.text = it.data.toString()
                     binding.login.isVisible = false
                     binding.password.isVisible = false
                     binding.ok.isVisible = false
-                    val intent = Intent(this@MainActivity, WorkActivityUser::class.java)
-                    intent.putExtra(LoginData::class.java.simpleName, it.data)
+                    tmp = it.data
+                    runOnUiThread {
+                        val intent = Intent(this@MainActivity, WorkActivityUser::class.java)
+                        intent.putExtra(LoginData::class.java.simpleName, tmp)
+                        startActivity(intent)
+                    }
 
-                    startActivity(intent)
                 }
                 else -> {
                     binding.progressBar.isVisible = false
@@ -66,10 +74,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
         binding.ok.setOnClickListener {
             val inputLogin = binding.login.text.toString()
             val inputPassword = binding.password.text.toString()
             viewModel.getDataForShow(inputLogin, inputPassword)
         }
     }
+
 }

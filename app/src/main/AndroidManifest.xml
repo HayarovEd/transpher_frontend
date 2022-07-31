@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Transpher_frontend"
         tools:targetApi="31">
         <activity
-            android:name=".WorkActivity"
+            android:name=".ui.WorkActivityUser"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

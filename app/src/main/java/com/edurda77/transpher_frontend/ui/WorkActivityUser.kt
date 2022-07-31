@@ -17,7 +17,7 @@ class WorkActivityUser : AppCompatActivity() {
         if (arguments != null) {
             val room = arguments.getSerializable(LoginData::class.java.simpleName) as LoginData
             binding.nameUserText.text = room.loginUser
-            binding.lastDataText.text = room.currentData.toString()
+            binding.lastDataShow.text = room.currentData.toString()
             binding.editNewData.hint = room.currentData.toString()
         }
     }
