@@ -58,11 +58,10 @@ private lateinit var tmp:LoginData
                     binding.password.isVisible = false
                     binding.ok.isVisible = false
                     tmp = it.data
-                    runOnUiThread {
                         val intent = Intent(this@MainActivity, WorkActivityUser::class.java)
                         intent.putExtra(LoginData::class.java.simpleName, tmp)
                         startActivity(intent)
-                    }
+
 
                 }
                 else -> {
