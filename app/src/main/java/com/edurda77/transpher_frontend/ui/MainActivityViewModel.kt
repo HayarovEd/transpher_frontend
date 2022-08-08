@@ -20,8 +20,14 @@ class MainActivityViewModel : ViewModel() {
             try {
                 _commonData.value =  StateMainActivity.Loading
                 if (login == ADMIN) {
-                    val result = retrofitUseCaseImpl.getDataAdmin(login, password)
-                    _commonData.value =  StateMainActivity.Success(result)
+                    when (val result = retrofitUseCaseImpl.getDataAdmin(login, password)) {
+                        is NetworkState.Success -> {
+                            _commonData.value =  StateMainActivity.Success(result.data)
+                        }
+                        is NetworkState.Error -> {
+                            _commonData.value = StateMainActivity.Failure(result.message)
+                        }
+                    }
                 } else {
                     when (val result = retrofitUseCaseImpl.getData(login, password)) {
                         is NetworkState.Success -> {
