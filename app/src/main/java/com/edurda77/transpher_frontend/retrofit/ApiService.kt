@@ -16,5 +16,5 @@ interface ApiService {
     @POST("/login")
     suspend fun getLoginAdmin(
         @Body sendLoginModel: SendLoginModel
-    ): List<LoginData>
+    ): Response<List<LoginData>>
 }
