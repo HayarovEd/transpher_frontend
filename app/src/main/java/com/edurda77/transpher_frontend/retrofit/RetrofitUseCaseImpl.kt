@@ -22,6 +22,19 @@ class RetrofitUseCaseImpl : RetrofitUseCase {
         val response = api.getLogin(sendData)
         return if (response.isSuccessful) {
             val responseBody = response.body()
+            val code = response.code()
+            if (responseBody != null && code == 200) {
+                NetworkState.Success(responseBody)
+            } else if (responseBody != null && code == 400) {
+                NetworkState.ErrorServer(responseBody)
+            }  else {
+                NetworkState.Error(response)
+            }
+        } else {
+            NetworkState.Error(response)
+        }
+        /*return if (response.isSuccessful) {
+            val responseBody = response.body()
             if (responseBody != null) {
                 NetworkState.Success(responseBody)
             } else {
@@ -29,7 +42,7 @@ class RetrofitUseCaseImpl : RetrofitUseCase {
             }
         } else {
             NetworkState.Error(response)
-        }
+        }*/
     }
     override suspend fun getDataAdmin(login: String, password: String) : List<LoginData> {
         val sendData = SendLoginModel(
