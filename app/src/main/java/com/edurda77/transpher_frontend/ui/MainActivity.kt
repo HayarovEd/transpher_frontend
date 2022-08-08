@@ -24,7 +24,7 @@ private lateinit var tmp:LoginData
             startActivity(intent)*/
 
 
-        viewModel.companiesData.observe(this) {
+        viewModel.commonData.observe(this) {
             when (it) {
                 is StateMainActivity.Loading -> {
                     binding.progressBar.isVisible = true
