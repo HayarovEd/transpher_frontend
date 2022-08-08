@@ -3,6 +3,8 @@ package com.edurda77.transpher_frontend.retrofit
 import com.edurda77.transpher_frontend.model.LoginData
 import com.edurda77.transpher_frontend.model.SendLoginModel
 import com.edurda77.transpher_frontend.utils.NetworkState
+import com.edurda77.transpher_frontend.utils.parseResponse
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -20,29 +22,7 @@ class RetrofitUseCaseImpl : RetrofitUseCase {
             loginPassword = password
         )
         val response = api.getLogin(sendData)
-        return if (response.isSuccessful) {
-            val responseBody = response.body()
-            val code = response.code()
-            if (responseBody != null && code == 200) {
-                NetworkState.Success(responseBody)
-            } else if (responseBody != null && code == 400) {
-                NetworkState.ErrorServer(responseBody)
-            }  else {
-                NetworkState.Error(response)
-            }
-        } else {
-            NetworkState.Error(response)
-        }
-        /*return if (response.isSuccessful) {
-            val responseBody = response.body()
-            if (responseBody != null) {
-                NetworkState.Success(responseBody)
-            } else {
-                NetworkState.Error(response)
-            }
-        } else {
-            NetworkState.Error(response)
-        }*/
+        return response.parseResponse()
     }
     override suspend fun getDataAdmin(login: String, password: String) : List<LoginData> {
         val sendData = SendLoginModel(

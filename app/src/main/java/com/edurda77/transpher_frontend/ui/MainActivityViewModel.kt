@@ -11,32 +11,30 @@ import kotlinx.coroutines.launch
 
 class MainActivityViewModel : ViewModel() {
     private val retrofitUseCaseImpl = RetrofitUseCaseImpl()
-    private val _companiesData =
+    private val _commonData =
         MutableLiveData<StateMainActivity>(StateMainActivity.Empty)
-    val companiesData = _companiesData
+    val commonData = _commonData
 
     fun getDataForShow(login:String, password:String) {
         viewModelScope.launch {
             try {
-                _companiesData.value =  StateMainActivity.Loading
+                _commonData.value =  StateMainActivity.Loading
                 if (login == ADMIN) {
                     val result = retrofitUseCaseImpl.getDataAdmin(login, password)
-                    _companiesData.value =  StateMainActivity.Success(result)
+                    _commonData.value =  StateMainActivity.Success(result)
                 } else {
-                    val result = retrofitUseCaseImpl.getData(login, password)
-                    when (result) {
+                    when (val result = retrofitUseCaseImpl.getData(login, password)) {
                         is NetworkState.Success -> {
-                            _companiesData.value = StateMainActivity.SuccessSingle(result.data)
+                            _commonData.value =  StateMainActivity.SuccessSingle(result.data)
                         }
                         is NetworkState.Error -> {
-                            _companiesData.value = StateMainActivity.Failure(result.response.errorBody().toString())
+                            _commonData.value = StateMainActivity.Failure(result.message)
                         }
                     }
 
-                    //_companiesData.value =  StateMainActivity.SuccessSingle(result)
                 }
             } catch (error: Exception) {
-                _companiesData.value = StateMainActivity.Failure(error.toString())
+                _commonData.value = StateMainActivity.Failure(error.toString())
             }
         }
     }
