@@ -2,6 +2,7 @@ package com.edurda77.transpher_frontend.retrofit
 
 import com.edurda77.transpher_frontend.model.LoginData
 import com.edurda77.transpher_frontend.model.SendLoginModel
+import com.edurda77.transpher_frontend.model.UpdateDataModel
 import com.edurda77.transpher_frontend.utils.NetworkState
 import com.edurda77.transpher_frontend.utils.parseResponse
 import retrofit2.Retrofit
@@ -27,6 +28,10 @@ class RetrofitUseCaseImpl : RetrofitUseCase {
     ): NetworkState<List<LoginData>> {
         val response = api.getLoginAdmin(initSendData(login, password))
         return response.parseResponse()
+    }
+
+    override suspend fun sendUpdateData(updateDataModel: UpdateDataModel): NetworkState<String> {
+        return api.transpherData(updateDataModel).parseResponse()
     }
 
     private fun initSendData(login: String, password: String) = SendLoginModel(
